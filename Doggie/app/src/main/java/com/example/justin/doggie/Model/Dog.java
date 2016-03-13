@@ -10,6 +10,18 @@ public class Dog
     private boolean isStray;
     private int mainPic;
     private String description;
+    private String location;
+
+    //temporary since wala pang database
+    private String contact;
+
+    public Dog( String name, boolean isStray, String location, String contact)
+    {
+        this.name = name;
+        this.isStray = isStray;
+        this.location = location;
+        this.contact = contact;
+    }
 
     public int getId()
     {
@@ -59,5 +71,25 @@ public class Dog
     public void setDescription(String description)
     {
         this.description = description;
+    }
+
+    public String getLocation()
+    {
+        return location;
+    }
+
+    public void setLocation(String location)
+    {
+        this.location = location;
+    }
+
+    public String getContact()
+    {
+        return contact;
+    }
+
+    public void setContact(String contact)
+    {
+        this.contact = contact;
     }
 }

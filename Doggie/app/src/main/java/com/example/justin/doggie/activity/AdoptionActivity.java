@@ -1,15 +1,11 @@
 package com.example.justin.doggie.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 
-import com.example.justin.doggie.Objects.Dog;
+import com.example.justin.doggie.Model.Dog;
 import com.example.justin.doggie.R;
 import com.example.justin.doggie.adapter.DogAdapter;
 
