@@ -1,4 +1,4 @@
-package com.example.justin.doggie.Model;
+package com.example.justin.doggie.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

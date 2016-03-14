@@ -10,8 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.justin.doggie.Model.Preference;
-import com.example.justin.doggie.Model.User;
+import com.example.justin.doggie.model.Preference;
+import com.example.justin.doggie.model.User;
 import com.example.justin.doggie.R;
 import com.example.justin.doggie.adapter.PreferenceAdapter;
 

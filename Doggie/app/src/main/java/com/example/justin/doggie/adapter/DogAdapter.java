@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.justin.doggie.Model.Dog;
+import com.example.justin.doggie.model.Dog;
 import com.example.justin.doggie.R;
 
 import java.util.ArrayList;

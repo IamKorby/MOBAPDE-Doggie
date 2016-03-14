@@ -6,9 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.Toast;
 
-import com.example.justin.doggie.Model.Preference;
+import com.example.justin.doggie.model.Preference;
 import com.example.justin.doggie.R;
 
 import java.util.ArrayList;
@@ -55,6 +54,7 @@ public class PreferenceAdapter extends RecyclerView.Adapter<PreferenceAdapter.Pr
         Preference preference = preferenceList.get(position);
 
         holder.cbPreference.setText(preference.getPreference());
+        //holder.cbPreference.setChecked(holder.cbPreference.isChecked());
         holder.cbPreference.setId(preference.getId());
         holder.container.setTag(holder);
         holder.container.setId(preference.getId());

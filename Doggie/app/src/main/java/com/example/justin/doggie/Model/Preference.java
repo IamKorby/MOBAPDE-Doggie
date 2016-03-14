@@ -1,4 +1,4 @@
-package com.example.justin.doggie.Model;
+package com.example.justin.doggie.model;
 
 /**
  * Created by Justin on 12/03/2016.

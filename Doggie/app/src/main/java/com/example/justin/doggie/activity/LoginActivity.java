@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.justin.doggie.Model.User;
+import com.example.justin.doggie.model.User;
 import com.example.justin.doggie.R;
 
 public class LoginActivity extends AppCompatActivity
