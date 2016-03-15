@@ -23,9 +23,10 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".activity.AdoptionActivity"
-            android:label="@string/title_activity_adoption"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:name=".activity.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

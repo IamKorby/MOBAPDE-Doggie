@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity
                 if( currentUser.getUsername().equals(username) && currentUser.getPassword().equals(password) )
                 {
                     Intent intent = new Intent();
-                    intent.setClass(getBaseContext(), AdoptionActivity.class);
+                    intent.setClass(getBaseContext(), MainActivity.class);
                     startActivity(intent);
                 }
             }
