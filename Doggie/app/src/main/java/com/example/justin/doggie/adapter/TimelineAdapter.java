@@ -43,6 +43,24 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         holder.location.setText(temp.getLocation());
         //ivPostPicture
         holder.message.setText(temp.getMessage());
+
+        holder.civDisplayPicture.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                
+            }
+        });
+
+        holder.username.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+            }
+        });
     }
 
     @Override
