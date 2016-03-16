@@ -33,6 +33,13 @@ public class User implements Parcelable
         this.password = password;
         this.preferences = preferences;
     }
+    //for testign purposes
+    public User(String firstName, String lastName, String email, String mobileNo ){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.mobileNo = mobileNo;
+    }
 
     public User( int id, String firstName, String lastName, String email, String mobileNo, String username, String password, ArrayList<Preference> preferences )
     {
@@ -57,6 +64,8 @@ public class User implements Parcelable
         password = in.readString();
         location = in.readString();
     }
+
+
 
     public int getId()
     {

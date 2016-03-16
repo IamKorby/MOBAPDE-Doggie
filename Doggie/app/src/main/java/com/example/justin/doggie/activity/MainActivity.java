@@ -23,12 +23,15 @@ import com.example.justin.doggie.fragment.AdoptionFragment;
 import com.example.justin.doggie.fragment.SettingsFragment;
 import com.example.justin.doggie.fragment.TimelineFragment;
 import com.example.justin.doggie.model.Dog;
+import com.example.justin.doggie.model.Post;
+import com.example.justin.doggie.model.User;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
     ArrayList<Dog> dogs;
+    ArrayList<Post> posts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -58,11 +61,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+
         // temporary solution
         dogs = new ArrayList<>(0);
         dogs.add(new Dog("Elizabeth", true, "Taft", "09178889999"));
         dogs.add(new Dog("Kerrbie", false, "Makati", "09178880000"));
         dogs.add(new Dog("AJ", false, "Paranaque", "09178865800"));
+
+
+        posts = new ArrayList<>(0);
+        posts.add(new Post("kerbbie","Taft","my dog lit fam",9,99));
+        posts.add(new Post("AJ","Bicuts","asdfasdfasf",9,95));
+        posts.add(new Post("Hannah","IDK","Dog be crazy",9,2));
+        posts.add(new Post("WIll","Near taft daw","great dog",9,199));
+
     }
 
     @Override
@@ -115,12 +128,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if ( id == R.id.nav_timeline )
         {
+            Bundle bundle = new Bundle();
+            bundle.putParcelableArrayList("posts", posts);
+
             fragment = new TimelineFragment();
+            fragment.setArguments(bundle);
         }
         else if( id == R.id.nav_adoption )
         {
             Bundle bundle = new Bundle();
             bundle.putParcelableArrayList("dogs", dogs);
+
 
             fragment = new AdoptionFragment();
             fragment.setArguments(bundle);
