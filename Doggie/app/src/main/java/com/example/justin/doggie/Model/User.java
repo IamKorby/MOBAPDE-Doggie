@@ -18,6 +18,7 @@ public class User implements Parcelable
     private String username;
     private String password;
     private ArrayList<Preference> preferences;
+    private ArrayList<Post> posts;
 
     //These are just temporary datatypes for the variables
     private String location;
