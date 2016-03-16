@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.justin.doggie.model.User;
 import com.example.justin.doggie.R;
@@ -45,6 +46,10 @@ public class LoginActivity extends AppCompatActivity
                     Intent intent = new Intent();
                     intent.setClass(getBaseContext(), MainActivity.class);
                     startActivity(intent);
+                }
+                else
+                {
+                    Toast.makeText(LoginActivity.this, "Account not found.", Toast.LENGTH_SHORT).show();
                 }
             }
         });

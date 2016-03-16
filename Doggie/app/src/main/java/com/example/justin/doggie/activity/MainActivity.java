@@ -113,11 +113,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_timeline)
+        if ( id == R.id.nav_timeline )
         {
             fragment = new TimelineFragment();
         }
-        else if( id == R.id.nav_adoption)
+        else if( id == R.id.nav_adoption )
         {
             Bundle bundle = new Bundle();
             bundle.putParcelableArrayList("dogs", dogs);
@@ -125,10 +125,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragment = new AdoptionFragment();
             fragment.setArguments(bundle);
         }
-        else if (id == R.id.nav_edit_account)
+        else if( id == R.id.nav_edit_account )
         {
             fragment = new SettingsFragment();
         }
+        else if( id == R.id.nav_logout )
+        {
+            finish();
+        }
+
 
         if( fragment != null )
         {
