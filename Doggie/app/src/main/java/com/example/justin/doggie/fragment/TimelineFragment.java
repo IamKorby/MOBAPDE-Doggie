@@ -32,12 +32,12 @@ public class TimelineFragment extends Fragment
     {
         //return super.onCreateView(inflater, container, savedInstanceState);
 
-        View rootView = inflater.inflate(R.layout.fragment_adoption, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_timeline, container, false);
 
         // start of code
         posts = getArguments().getParcelableArrayList("posts");
 
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.rvAdoption);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.rvTimeline);
 
         TimelineAdapter = new TimelineAdapter(posts);
 
