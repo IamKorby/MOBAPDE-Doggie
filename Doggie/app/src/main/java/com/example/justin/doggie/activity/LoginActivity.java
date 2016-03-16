@@ -8,8 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.justin.doggie.model.Preference;
 import com.example.justin.doggie.model.User;
 import com.example.justin.doggie.R;
+
+import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity
 {
@@ -17,7 +20,7 @@ public class LoginActivity extends AppCompatActivity
     EditText etUsername, etPassword;
     User currentUser;
 
-    final static int REQUEST_USER = 0;
+    final static int REQUEST_USER = 0, UPDATE_FROM_MAIN = 1;
     final static String KEY_USER = "user";
 
     @Override
@@ -45,7 +48,8 @@ public class LoginActivity extends AppCompatActivity
                 {
                     Intent intent = new Intent();
                     intent.setClass(getBaseContext(), MainActivity.class);
-                    startActivity(intent);
+                    intent.putExtra(KEY_USER, currentUser);
+                    startActivityForResult(intent, UPDATE_FROM_MAIN);
                 }
                 else
                 {
@@ -72,6 +76,11 @@ public class LoginActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
 
         if( requestCode == REQUEST_USER && resultCode == RESULT_OK )
+        {
+            currentUser = (User) data.getExtras().get(KEY_USER);
+        }
+        //TODO: temp solution
+        else if( requestCode == UPDATE_FROM_MAIN && resultCode == RESULT_OK )
         {
             currentUser = (User) data.getExtras().get(KEY_USER);
         }

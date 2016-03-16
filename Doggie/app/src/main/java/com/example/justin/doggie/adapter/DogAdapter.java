@@ -33,7 +33,7 @@ public class DogAdapter extends RecyclerView.Adapter<DogAdapter.DogHolder>
     public DogHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
         //attaches the dog_item.xml
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.dog_item, null);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.dog_item, parent, false);
         return new DogHolder(v);
     }
 

@@ -29,6 +29,8 @@
         </activity>
         <activity android:name=".activity.AccountDetailsActivity">
         </activity>
+        <activity android:name=".activity.CommentActivity">
+        </activity>
     </application>
 
 </manifest>

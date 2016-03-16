@@ -1,6 +1,7 @@
 package com.example.justin.doggie.fragment;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.justin.doggie.R;
+import com.example.justin.doggie.activity.AccountDetailsActivity;
+import com.example.justin.doggie.activity.CommentActivity;
 import com.example.justin.doggie.adapter.DogAdapter;
 import com.example.justin.doggie.adapter.TimelineAdapter;
 import com.example.justin.doggie.model.Dog;
@@ -44,6 +47,29 @@ public class TimelineFragment extends Fragment
         recyclerView.setAdapter(TimelineAdapter);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
+
+        TimelineAdapter.setmOnItemClickListener(new TimelineAdapter.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick( Post p, String s )
+            {
+                if ( s == TimelineAdapter.DESTINATION_ACCOUNT_DETAILS )
+                {
+                    Intent intent = new Intent();
+                    intent.setClass(getActivity(), AccountDetailsActivity.class);
+                    intent.putExtra("post", p);
+                    startActivity(intent);
+                }
+                else if ( s == TimelineAdapter.DESTINATION_COMMENT )
+                {
+                    Intent intent = new Intent();
+                    intent.setClass(getActivity(), CommentActivity.class);
+                    intent.putExtra("post", p);
+                    startActivity(intent);
+                }
+
+            }
+        });
 
         return rootView;
     }

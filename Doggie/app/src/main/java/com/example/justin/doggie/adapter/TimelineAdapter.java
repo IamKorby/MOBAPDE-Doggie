@@ -1,5 +1,6 @@
 package com.example.justin.doggie.adapter;
 
+import android.content.DialogInterface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +22,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.TimelineHolder> {
 
+    public final static String DESTINATION_ACCOUNT_DETAILS = "AccountDetails", DESTINATION_COMMENT = "Comment";
     ArrayList<Post> posts;
+    private OnItemClickListener mOnItemClickListener;
 
     public TimelineAdapter(ArrayList<Post> posts){
         this.posts = posts;
@@ -30,12 +33,12 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
     @Override
     public TimelineHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.userpost_item, null);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.userpost_item, parent, false);
         return new TimelineHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(TimelineHolder holder, int position) {
+    public void onBindViewHolder(TimelineHolder holder, final int position) {
         Post temp = posts.get(position);
 
         //civDisplayPicture
@@ -44,12 +47,13 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         //ivPostPicture
         holder.message.setText(temp.getMessage());
 
+        // TODO: pass userID, not post
         holder.civDisplayPicture.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                
+                mOnItemClickListener.onItemClick(posts.get(position), DESTINATION_ACCOUNT_DETAILS);
             }
         });
 
@@ -58,7 +62,25 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
             @Override
             public void onClick(View v)
             {
+                mOnItemClickListener.onItemClick(posts.get(position), DESTINATION_ACCOUNT_DETAILS);
+            }
+        });
 
+        holder.ivComment.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick( View v )
+            {
+                mOnItemClickListener.onItemClick(posts.get(position), DESTINATION_COMMENT);
+            }
+        });
+
+        holder.tvNumComment.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick( View v )
+            {
+                mOnItemClickListener.onItemClick(posts.get(position), DESTINATION_COMMENT);
             }
         });
     }
@@ -92,5 +114,15 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
             ivComment = (ImageView) itemView.findViewById(R.id.ivComment);
             tvNumComment = (TextView) itemView.findViewById(R.id.tvCommentCount);
         }
+    }
+
+    public void setmOnItemClickListener(OnItemClickListener m)
+    {
+        this.mOnItemClickListener = m;
+    }
+
+    public interface OnItemClickListener
+    {
+        public void onItemClick(Post p, String destination);
     }
 }

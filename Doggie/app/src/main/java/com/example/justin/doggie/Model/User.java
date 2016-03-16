@@ -31,7 +31,15 @@ public class User implements Parcelable
         this.mobileNo = mobileNo;
         this.username = username;
         this.password = password;
-        this.preferences = preferences;
+
+        if( preferences == null )
+        {
+            this.preferences = new ArrayList<>(0);
+        }
+        else
+        {
+            this.preferences = preferences;
+        }
     }
     //for testign purposes
     public User(String firstName, String lastName, String email, String mobileNo ){
@@ -50,10 +58,18 @@ public class User implements Parcelable
         this.mobileNo = mobileNo;
         this.username = username;
         this.password = password;
-        this.preferences = preferences;
+
+        if( preferences == null )
+        {
+            this.preferences = new ArrayList<>(0);
+        }
+        else
+        {
+            this.preferences = preferences;
+        }
     }
 
-    protected User(Parcel in)
+    protected User( Parcel in )
     {
         id = in.readInt();
         firstName = in.readString();
@@ -62,10 +78,10 @@ public class User implements Parcelable
         mobileNo = in.readString();
         username = in.readString();
         password = in.readString();
+        preferences = in.createTypedArrayList(Preference.CREATOR);
+        posts = in.createTypedArrayList(Post.CREATOR);
         location = in.readString();
     }
-
-
 
     public int getId()
     {
@@ -147,6 +163,33 @@ public class User implements Parcelable
         this.preferences = preferences;
     }
 
+    public ArrayList<Integer> getPreferenceIds()
+    {
+        ArrayList<Integer> userPreferenceIds = new ArrayList<>(0);
+
+        for( int i = 0; i < preferences.size(); i++ )
+        {
+            userPreferenceIds.add((Integer) preferences.get(i).getId());
+        }
+
+        return userPreferenceIds;
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>()
+    {
+        @Override
+        public User createFromParcel( Parcel in )
+        {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray( int size )
+        {
+            return new User[size];
+        }
+    };
+
     @Override
     public int describeContents()
     {
@@ -154,7 +197,7 @@ public class User implements Parcelable
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags)
+    public void writeToParcel( Parcel dest, int flags )
     {
         dest.writeInt(id);
         dest.writeString(firstName);
@@ -163,21 +206,8 @@ public class User implements Parcelable
         dest.writeString(mobileNo);
         dest.writeString(username);
         dest.writeString(password);
+        dest.writeTypedList(preferences);
+        dest.writeTypedList(posts);
         dest.writeString(location);
     }
-
-    public static final Creator<User> CREATOR = new Creator<User>()
-    {
-        @Override
-        public User createFromParcel(Parcel in)
-        {
-            return new User(in);
-        }
-
-        @Override
-        public User[] newArray(int size)
-        {
-            return new User[size];
-        }
-    };
 }

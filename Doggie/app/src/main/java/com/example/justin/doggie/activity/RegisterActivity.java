@@ -55,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity
         preferenceList.add(new Preference(9, "Fluffy Hair"));
         preferenceList.add(new Preference(10, "Hybrid"));
 
-        preferenceAdapter = new PreferenceAdapter(preferenceList);
+        preferenceAdapter = new PreferenceAdapter(preferenceList, false);
 
         rvPreferences.setAdapter(preferenceAdapter);
         rvPreferences.setLayoutManager(new LinearLayoutManager(getBaseContext()));

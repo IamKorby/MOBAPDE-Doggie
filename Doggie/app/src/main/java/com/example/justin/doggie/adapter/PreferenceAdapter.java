@@ -1,11 +1,13 @@
 package com.example.justin.doggie.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import com.example.justin.doggie.model.Preference;
 import com.example.justin.doggie.R;
@@ -19,11 +21,13 @@ public class PreferenceAdapter extends RecyclerView.Adapter<PreferenceAdapter.Pr
 {
     private ArrayList<Preference> preferenceList;
     private ArrayList<Integer> preferenceId;
+    private boolean isEdit;
 
-    public PreferenceAdapter( ArrayList<Preference> preferenceList )
+    public PreferenceAdapter( ArrayList<Preference> preferenceList, boolean isEdit )
     {
         this.preferenceList = preferenceList;
         this.preferenceId = new ArrayList<>(0);
+        this.isEdit = isEdit;
     }
 
     public class PreferenceViewHolder extends RecyclerView.ViewHolder
@@ -54,8 +58,13 @@ public class PreferenceAdapter extends RecyclerView.Adapter<PreferenceAdapter.Pr
         Preference preference = preferenceList.get(position);
 
         holder.cbPreference.setText(preference.getPreference());
-        //holder.cbPreference.setChecked(holder.cbPreference.isChecked());
         holder.cbPreference.setId(preference.getId());
+
+        if( isEdit && preferenceId.indexOf((Integer) holder.cbPreference.getId()) != -1 )
+        {
+            holder.cbPreference.setChecked(true);
+        }
+
         holder.container.setTag(holder);
         holder.container.setId(preference.getId());
 
@@ -79,14 +88,14 @@ public class PreferenceAdapter extends RecyclerView.Adapter<PreferenceAdapter.Pr
                     preferenceId.remove((Integer) v.getId());
                 }
 
-                /*String ids = "";
+                String ids = "";
 
                 for (int i = 0; i < preferenceId.size(); i++)
                 {
                     ids += preferenceId.get(i).toString();
                 }
 
-                Toast.makeText(v.getContext(), "V:" + ids, Toast.LENGTH_SHORT).show();*/
+                Toast.makeText(v.getContext(), "V:" + ids, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -107,14 +116,14 @@ public class PreferenceAdapter extends RecyclerView.Adapter<PreferenceAdapter.Pr
                     preferenceId.remove((Integer) buttonView.getId());
                 }
 
-                /*String ids = "";
+                String ids = "";
 
                 for( int i = 0; i < preferenceId.size(); i++ )
                 {
                     ids += preferenceId.get(i).toString();
                 }
 
-                Toast.makeText(buttonView.getContext(), "CB:" + ids, Toast.LENGTH_SHORT).show();*/
+                Toast.makeText(buttonView.getContext(), "CB:" + ids, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -129,4 +138,6 @@ public class PreferenceAdapter extends RecyclerView.Adapter<PreferenceAdapter.Pr
     {
         return preferenceId;
     }
+
+    public void setUserPreferenceIds(ArrayList<Integer> userPreferenceIds) { this.preferenceId = userPreferenceIds; }
 }

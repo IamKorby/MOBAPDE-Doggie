@@ -1,12 +1,14 @@
 package com.example.justin.doggie.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -32,6 +34,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 {
     ArrayList<Dog> dogs;
     ArrayList<Post> posts;
+    User currentUser;
+    Fragment adoptionFragment = null, settingsFragment = null, timelineFragment = null;
+    FragmentManager fragmentManager;
+    DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -52,16 +58,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
+        currentUser = (User) getIntent().getExtras().get(LoginActivity.KEY_USER);
 
         // temporary solution
         dogs = new ArrayList<>(0);
@@ -81,14 +87,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onBackPressed()
     {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START))
+        if (drawerLayout.isDrawerOpen(GravityCompat.START))
         {
-            drawer.closeDrawer(GravityCompat.START);
+            drawerLayout.closeDrawer(GravityCompat.START);
         }
         else
         {
-            super.onBackPressed();
+            // TODO: exitApplication
+            //super.onBackPressed();
         }
     }
 
@@ -121,47 +127,84 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(MenuItem item)
     {
-        Fragment fragment = null;
-
+        fragmentManager = getSupportFragmentManager();
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if ( id == R.id.nav_timeline )
         {
+            getSupportActionBar().setTitle("Timeline");
+
             Bundle bundle = new Bundle();
             bundle.putParcelableArrayList("posts", posts);
 
-            fragment = new TimelineFragment();
-            fragment.setArguments(bundle);
+            if( timelineFragment == null )
+            {
+                timelineFragment = new TimelineFragment();
+                timelineFragment.setArguments(bundle);
+            }
+
+            drawerLayout.closeDrawer(GravityCompat.START);
+            fragmentManager.beginTransaction().replace(R.id.content_main, timelineFragment).commit();
         }
         else if( id == R.id.nav_adoption )
         {
+            getSupportActionBar().setTitle("Adoption");
+
             Bundle bundle = new Bundle();
             bundle.putParcelableArrayList("dogs", dogs);
 
+            if( adoptionFragment == null )
+            {
+                adoptionFragment = new AdoptionFragment();
+                adoptionFragment.setArguments(bundle);
+            }
 
-            fragment = new AdoptionFragment();
-            fragment.setArguments(bundle);
+            drawerLayout.closeDrawer(GravityCompat.START);
+            fragmentManager.beginTransaction().replace(R.id.content_main, adoptionFragment).commit();
         }
         else if( id == R.id.nav_edit_account )
         {
-            fragment = new SettingsFragment();
+            getSupportActionBar().setTitle("Edit Profile Settings");
+
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(LoginActivity.KEY_USER, currentUser);
+
+            if( settingsFragment == null )
+            {
+                settingsFragment = new SettingsFragment();
+                settingsFragment.setArguments(bundle);
+            }
+
+            drawerLayout.closeDrawer(GravityCompat.START);
+            fragmentManager.beginTransaction().replace(R.id.content_main, settingsFragment).commit();
         }
         else if( id == R.id.nav_logout )
         {
+            // TODO: temp solution
+            Intent intent = new Intent();
+            intent.putExtra(LoginActivity.KEY_USER, currentUser);
+            setResult(RESULT_OK, intent);
+
             finish();
-        }
-
-
-        if( fragment != null )
-        {
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            drawer.closeDrawer(GravityCompat.START);
-
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.content_main, fragment).commit();
         }
 
         return true;
     }
+
+    public void updateCurrentUser( User u )
+    {
+        currentUser = u;
+        fragmentManager.beginTransaction().remove(settingsFragment).commit();
+        settingsFragment = null;
+        getSupportActionBar().setTitle("MainActivity");
+    }
+
+    public void cancelFragment()
+    {
+        fragmentManager.beginTransaction().remove(settingsFragment).commit();
+        settingsFragment = null;
+        getSupportActionBar().setTitle("MainActivity");
+    }
+
 }
