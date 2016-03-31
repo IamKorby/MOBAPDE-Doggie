@@ -1,6 +1,7 @@
 package com.example.justin.doggie.activity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +16,16 @@ import com.example.justin.doggie.model.User;
 import com.example.justin.doggie.R;
 import com.example.justin.doggie.adapter.PreferenceAdapter;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class RegisterActivity extends AppCompatActivity
 {
@@ -43,22 +53,7 @@ public class RegisterActivity extends AppCompatActivity
         rvPreferences = (RecyclerView) findViewById(R.id.recycler_view_preference);
 
         // get all preferences from the database
-        preferenceList = new ArrayList<>(0);
-        preferenceList.add(new Preference(1, "White"));
-        preferenceList.add(new Preference(2, "Brown"));
-        preferenceList.add(new Preference(3, "Black"));
-        preferenceList.add(new Preference(4, "White & Brown"));
-        preferenceList.add(new Preference(5, "White & Black"));
-        preferenceList.add(new Preference(6, "Curly Hair"));
-        preferenceList.add(new Preference(7, "Wavy Hair"));
-        preferenceList.add(new Preference(8, "Straight Hair"));
-        preferenceList.add(new Preference(9, "Fluffy Hair"));
-        preferenceList.add(new Preference(10, "Hybrid"));
-
-        preferenceAdapter = new PreferenceAdapter(preferenceList, false);
-
-        rvPreferences.setAdapter(preferenceAdapter);
-        rvPreferences.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+        new GetPreferenceListHelper().execute();
 
         buttonSave.setOnClickListener(new View.OnClickListener()
         {
@@ -101,6 +96,66 @@ public class RegisterActivity extends AppCompatActivity
                 finish();
             }
         });
+    }
+
+    public class GetPreferenceListHelper extends AsyncTask<Void, Void, String>
+    {
+        @Override
+        protected String doInBackground( Void... params )
+        {
+            String url = "http://10.100.202.94:8080/DoggieServer/PreferenceServlet";
+
+            OkHttpClient client = new OkHttpClient();
+
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+
+            Response response = null;
+
+            try
+            {
+                response = client.newCall(request).execute();
+                return response.body().string();
+            }
+            catch ( IOException e )
+            {
+                e.printStackTrace();
+            }
+
+            return "";
+        }
+
+        @Override
+        protected void onPostExecute( String s )
+        {
+            super.onPostExecute(s);
+
+            preferenceList = new ArrayList<>(0);
+
+            try
+            {
+                JSONArray preferenceListFromServer = new JSONArray(s);
+
+                for( int i = 0; i < preferenceListFromServer.length(); i++ )
+                {
+                    JSONObject preference = preferenceListFromServer.getJSONObject(i);
+                    int id = preference.getInt("id");
+                    String preferenceItem = preference.getString("preference");
+
+                    preferenceList.add(new Preference(id, preferenceItem));
+                }
+
+                preferenceAdapter = new PreferenceAdapter(preferenceList, false);
+
+                rvPreferences.setAdapter(preferenceAdapter);
+                rvPreferences.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+            }
+            catch ( JSONException e )
+            {
+                e.printStackTrace();
+            }
+        }
     }
 
     // temporary function

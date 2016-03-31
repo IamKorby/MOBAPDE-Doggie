@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.justin.doggie.R;
 import com.example.justin.doggie.model.Post;
@@ -47,6 +48,10 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         //ivPostPicture
         holder.message.setText(temp.getMessage());
 
+        holder.ivPostPicture.setTag(holder);
+        holder.ivFavorite.setTag(holder);
+        holder.ivFavorite.setTag(R.id.IS_CLICKED, false);
+
         // TODO: pass userID, not post
         holder.civDisplayPicture.setOnClickListener(new View.OnClickListener()
         {
@@ -83,6 +88,28 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
                 mOnItemClickListener.onItemClick(posts.get(position), DESTINATION_COMMENT);
             }
         });
+
+        holder.ivPostPicture.setOnLongClickListener(new View.OnLongClickListener()
+        {
+            @Override
+            public boolean onLongClick( View v )
+            {
+                setIVFavoriteImage(v);
+
+                return true;
+            }
+        });
+
+        holder.ivFavorite.setOnLongClickListener(new View.OnLongClickListener()
+        {
+            @Override
+            public boolean onLongClick( View v )
+            {
+                setIVFavoriteImage(v);
+
+                return true;
+            }
+        });
     }
 
     @Override
@@ -100,7 +127,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         ImageView ivFavorite;
         ImageView ivComment;
         TextView tvNumComment;
-
+        View container;
 
         public TimelineHolder(View itemView) {
             super(itemView);
@@ -113,6 +140,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
             ivFavorite = (ImageView) itemView.findViewById(R.id.ivFavorite);
             ivComment = (ImageView) itemView.findViewById(R.id.ivComment);
             tvNumComment = (TextView) itemView.findViewById(R.id.tvCommentCount);
+            container = itemView.findViewById(R.id.container);
         }
     }
 
@@ -124,5 +152,19 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
     public interface OnItemClickListener
     {
         public void onItemClick(Post p, String destination);
+    }
+
+    private void setIVFavoriteImage( View v )
+    {
+        if( ((TimelineHolder) v.getTag()).ivFavorite.getTag(R.id.IS_CLICKED) == (Object) false )
+        {
+            ((TimelineHolder) v.getTag()).ivFavorite.setImageResource(R.drawable.ic_favorite_black_24dp);
+            ((TimelineHolder) v.getTag()).ivFavorite.setTag(R.id.IS_CLICKED, true);
+        }
+        else
+        {
+            ((TimelineHolder) v.getTag()).ivFavorite.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+            ((TimelineHolder) v.getTag()).ivFavorite.setTag(R.id.IS_CLICKED, false);
+        }
     }
 }
