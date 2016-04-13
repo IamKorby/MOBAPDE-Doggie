@@ -18,12 +18,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.justin.doggie.R;
 import com.example.justin.doggie.adapter.DogAdapter;
 import com.example.justin.doggie.fragment.AdoptionFragment;
 import com.example.justin.doggie.fragment.SettingsFragment;
 import com.example.justin.doggie.fragment.TimelineFragment;
+import com.example.justin.doggie.fragment.postDialogFragment;
 import com.example.justin.doggie.model.Dog;
 import com.example.justin.doggie.model.Post;
 import com.example.justin.doggie.model.User;
@@ -38,23 +41,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Fragment adoptionFragment = null, settingsFragment = null, timelineFragment = null;
     FragmentManager fragmentManager;
     DrawerLayout drawerLayout;
+    TextView sampleText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Add a new post
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Supposed to open a dialog", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
+                postDialogFragment df = new postDialogFragment();
+                df.show(getFragmentManager(), "");
+
             }
         });
 
@@ -205,6 +215,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentManager.beginTransaction().remove(settingsFragment).commit();
         settingsFragment = null;
         getSupportActionBar().setTitle("MainActivity");
+    }
+
+    public void onYesSelected( String s )
+    {
+        sampleText.setText(s);
+        Toast.makeText(getBaseContext(), "The user has selected yes.", Toast.LENGTH_LONG).show();
     }
 
 }

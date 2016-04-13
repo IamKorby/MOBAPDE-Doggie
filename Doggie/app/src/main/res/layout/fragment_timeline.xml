@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:background="#FFFFFFFF"
     android:fitsSystemWindows="true"
-    tools:context=".fragment.TimelineFragment">
+    tools:context=".fragment.TimelineFragment"
+    android:theme="@style/AppTheme.NoActionBar">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvTimeline"
