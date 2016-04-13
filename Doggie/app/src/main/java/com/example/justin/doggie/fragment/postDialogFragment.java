@@ -25,8 +25,7 @@ public class postDialogFragment extends DialogFragment {
 
         AlertDialog.Builder dialogBuilder
                 = new AlertDialog.Builder(getActivity())
-                .setTitle("Stop")
-                .setMessage("Are you sure you want to do this?")
+                .setTitle("Post")
                 .setView(v)
                 .setNeutralButton("Cancel", new DialogInterface.OnClickListener()
                 {
@@ -36,7 +35,7 @@ public class postDialogFragment extends DialogFragment {
                         dismiss();
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener()
+                .setNegativeButton("Upload", new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
@@ -44,16 +43,16 @@ public class postDialogFragment extends DialogFragment {
                         dismiss();
                     }
                 })
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                .setPositiveButton("Post", new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
                         dismiss();
 
-                        EditText etName = (EditText) v.findViewById(R.id.et_name);
+                        EditText etPostMsg = (EditText) v.findViewById(R.id.et_postMessage);
 
-                        ((MainActivity) getActivity()).onYesSelected(etName.getText().toString());
+                        ((MainActivity) getActivity()).onYesSelected(etPostMsg.getText().toString());
                     }
                 });
 

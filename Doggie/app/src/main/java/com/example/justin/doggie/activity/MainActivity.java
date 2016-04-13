@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FragmentManager fragmentManager;
     DrawerLayout drawerLayout;
     TextView sampleText;
+    boolean isTimeline = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -59,12 +60,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view)
             {
-                Snackbar.make(view, "Supposed to open a dialog", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
-                postDialogFragment df = new postDialogFragment();
-                df.show(getFragmentManager(), "");
-
+//                Snackbar.make(view, "Supposed to open a dialog", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                if(isTimeline) {
+                    postDialogFragment df = new postDialogFragment();
+                    df.show(getFragmentManager(), "");
+                }else{
+                    Snackbar.make(view, "You're in adoption", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
             }
         });
 
@@ -142,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if ( id == R.id.nav_timeline )
-        {
+        {   isTimeline = true;
             getSupportActionBar().setTitle("Timeline");
 
             Bundle bundle = new Bundle();
@@ -159,6 +163,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else if( id == R.id.nav_adoption )
         {
+            isTimeline = false;
             getSupportActionBar().setTitle("Adoption");
 
             Bundle bundle = new Bundle();

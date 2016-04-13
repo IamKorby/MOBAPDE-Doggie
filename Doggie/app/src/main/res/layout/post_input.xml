@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:hint="Enter Name"
-        android:id="@+id/et_name"/>
+        android:hint="What do you want to say?"
+        android:id="@+id/et_postMessage"/>
 
 </LinearLayout>
