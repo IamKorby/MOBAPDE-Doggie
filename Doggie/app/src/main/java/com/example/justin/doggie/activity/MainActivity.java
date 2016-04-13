@@ -26,6 +26,7 @@ import com.example.justin.doggie.adapter.DogAdapter;
 import com.example.justin.doggie.fragment.AdoptionFragment;
 import com.example.justin.doggie.fragment.SettingsFragment;
 import com.example.justin.doggie.fragment.TimelineFragment;
+import com.example.justin.doggie.fragment.adoptionDialogFragment;
 import com.example.justin.doggie.fragment.postDialogFragment;
 import com.example.justin.doggie.model.Dog;
 import com.example.justin.doggie.model.Post;
@@ -66,8 +67,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     postDialogFragment df = new postDialogFragment();
                     df.show(getFragmentManager(), "");
                 }else{
-                    Snackbar.make(view, "You're in adoption", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+//                    Snackbar.make(view, "You're in adoption", Snackbar.LENGTH_LONG)
+//                            .setAction("Action", null).show();
+                    adoptionDialogFragment df = new adoptionDialogFragment();
+                    df.show(getFragmentManager(), "");
                 }
             }
         });
@@ -222,10 +225,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportActionBar().setTitle("MainActivity");
     }
 
-    public void onYesSelected( String s )
+    public void onPostPress( String msg )
     {
-        sampleText.setText(s);
-        Toast.makeText(getBaseContext(), "The user has selected yes.", Toast.LENGTH_LONG).show();
+
+        Toast.makeText(getBaseContext(), "The user is in timeline.", Toast.LENGTH_LONG).show();
+    }
+
+    public void onAdoptPress(String msg){
+        Toast.makeText(getBaseContext(), "The user is in adoption.", Toast.LENGTH_LONG).show();
     }
 
 }

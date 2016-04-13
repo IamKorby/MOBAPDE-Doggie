@@ -13,15 +13,14 @@ import com.example.justin.doggie.R;
 import com.example.justin.doggie.activity.MainActivity;
 
 /**
- * Created by Angelo Amadora on 4/13/2016.
+ * Created by Angelo Amadora on 4/14/2016.
  */
-public class postDialogFragment extends DialogFragment {
+public class adoptionDialogFragment extends DialogFragment {
+
     View v;
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState)
-    {
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         v = LayoutInflater.from(getActivity())
-                .inflate(R.layout.post_input, null);
+                .inflate(R.layout.adoption_input, null);
 
         AlertDialog.Builder dialogBuilder
                 = new AlertDialog.Builder(getActivity())
@@ -48,11 +47,13 @@ public class postDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
+
+                        //post details here
                         dismiss();
 
-                        EditText etPostMsg = (EditText) v.findViewById(R.id.et_postMessage);
+                        EditText etDogName = (EditText) v.findViewById(R.id.et_dogName);
 
-                        ((MainActivity) getActivity()).onPostPress(etPostMsg.getText().toString());
+                        ((MainActivity) getActivity()).onAdoptPress(etDogName.getText().toString());
                     }
                 });
 

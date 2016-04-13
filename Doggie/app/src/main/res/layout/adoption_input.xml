@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
+        android:hint="Name of dog?"
+        android:id="@+id/et_dogName"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:hint="Location?"
+        android:id="@+id/et_dogLocation"/>
+
+    <CheckBox
+        android:id="@+id/cb_isStray"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:layout_marginTop="5dp"
+        android:text="Stray Dog"
+        android:layout_marginLeft="20dp"
+        android:theme="@style/MyCheckBox"/>
+
+    <CheckBox
+        android:id="@+id/cb_hasPapers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:layout_marginTop="5dp"
+        android:text="Papers"
+        android:layout_marginLeft="20dp"
+        android:theme="@style/MyCheckBox"/>
+
+    <CheckBox
+        android:id="@+id/cb_isStud"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:layout_marginTop="5dp"
+        android:text="Stud"
+        android:layout_marginLeft="20dp"
+        android:theme="@style/MyCheckBox"/>
+
+    <CheckBox
+        android:id="@+id/cb_isLost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:layout_marginTop="5dp"
+        android:text="Lost"
+        android:layout_marginLeft="20dp"
+        android:theme="@style/MyCheckBox"/>
+
+
+</LinearLayout>
