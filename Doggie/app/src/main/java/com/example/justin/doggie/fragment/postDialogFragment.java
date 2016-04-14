@@ -67,7 +67,6 @@ public class postDialogFragment extends DialogFragment {
     com.google.android.gms.location.LocationListener locationListener = new com.google.android.gms.location.LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
-            location.getLatitude();
 
             //
             Toast.makeText(getActivity().getBaseContext(), "Location succeeded!", Toast.LENGTH_LONG).show();
