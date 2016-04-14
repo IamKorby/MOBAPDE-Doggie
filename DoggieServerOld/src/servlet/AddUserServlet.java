@@ -6,10 +6,13 @@
 package servlet;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import controller.Controller;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -94,11 +97,19 @@ public class AddUserServlet extends HttpServlet
 	String password = request.getParameter("password");
 	String userPreferences = request.getParameter("userPreferences");
 	
-	Gson gson = new Gson();
+	Type listType = new TypeToken<ArrayList<Preference>>() {}.getType();
+	ArrayList<Preference> parsedPreferences = new Gson().fromJson(userPreferences, listType);
+	
+	for( int i = 0; i < parsedPreferences.size(); i++ )
+	{
+	    System.out.println(parsedPreferences.get(i).getId() + " - " + parsedPreferences.get(i).getPreference());
+	}
+	
+	//Gson gson = new Gson();
 	//ArrayList<Preference> preferences = gson.fromJson(userPreferences, ArrayList<Preference>);
 	
 	User user = new User (firstName, lastName, email, mobileNumber, username, password,  14.5643551, 120.994);
-	 
+	user.setUserPreferences(parsedPreferences);
 	
 	System.out.println(userPreferences);
 	
