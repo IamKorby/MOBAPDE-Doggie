@@ -10,7 +10,8 @@
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>                        TextView iu = (TextView) v.findViewById(R.id.tv_adoptionImageUploaded);
+                        iu.setVisibility(View.VISIBLE);
     </style>
 
     <style name="MyCheckBox" parent="Theme.AppCompat.Light">

@@ -19,6 +19,13 @@
         android:layout_marginRight="20dp"
         android:hint="Location?"
         android:id="@+id/et_dogLocation"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:hint="Contact number?"
+        android:id="@+id/et_userContact"/>
 
     <CheckBox
         android:id="@+id/cb_isStray"
@@ -48,7 +55,8 @@
         android:layout_marginTop="5dp"
         android:text="Stud"
         android:layout_marginLeft="20dp"
-        android:theme="@style/MyCheckBox"/>
+        android:theme="@style/MyCheckBox"
+        />
 
     <CheckBox
         android:id="@+id/cb_isLost"
@@ -59,6 +67,17 @@
         android:text="Lost"
         android:layout_marginLeft="20dp"
         android:theme="@style/MyCheckBox"/>
+
+    <TextView
+        android:id="@+id/tv_adoptionImageUploaded"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="*Image attached"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="12sp"
+        android:visibility="invisible"
+       />
 
 
 </LinearLayout>
