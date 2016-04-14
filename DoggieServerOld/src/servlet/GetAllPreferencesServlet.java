@@ -17,14 +17,14 @@ import model.Preference;
 /**
  * Servlet implementation class PreferenceServlet
  */
-@WebServlet("/PreferenceServlet")
-public class PreferenceServlet extends HttpServlet {
+@WebServlet("/GetAllPreferencesServlet")
+public class GetAllPreferencesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PreferenceServlet() {
+    public GetAllPreferencesServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

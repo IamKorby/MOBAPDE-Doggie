@@ -103,7 +103,7 @@ public class RegisterActivity extends AppCompatActivity
         @Override
         protected String doInBackground( Void... params )
         {
-            String url = "http://10.100.202.94:8080/DoggieServer/PreferenceServlet";
+            String url = "http://10.100.203.66:8080/DoggieServer/GetAllPreferencesServlet";
 
             OkHttpClient client = new OkHttpClient();
 

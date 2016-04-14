@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `mobapde` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `mobapde`;
 -- MySQL dump 10.13  Distrib 5.6.17, for Win32 (x86)
 --
 -- Host: localhost    Database: mobapde
@@ -56,7 +54,7 @@ CREATE TABLE `dog` (
   `dog_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
-  `picture` blob NOT NULL,
+  `picture` varchar(200) NOT NULL,
   `haspapers` int(11) DEFAULT NULL,
   `isstray` int(11) DEFAULT NULL,
   `islost` int(11) DEFAULT NULL,
@@ -87,7 +85,7 @@ CREATE TABLE `post` (
   `post_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `post` varchar(1000) DEFAULT NULL,
-  `image` blob NOT NULL,
+  `image` varchar(200) NOT NULL,
   `numfavorite` int(11) DEFAULT NULL,
   `numcomment` int(11) DEFAULT NULL,
   `isdeleted` int(11) DEFAULT NULL,
@@ -147,7 +145,7 @@ CREATE TABLE `user` (
   `location_latitude` double DEFAULT NULL,
   `location_longitude` double DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -156,6 +154,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'First Name','Last Name','email@email.com','12345678901','username','password',14.5643551,120.994);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -191,4 +190,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-31 14:10:03
+-- Dump completed on 2016-04-14 11:05:11

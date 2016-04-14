@@ -1,6 +1,7 @@
 package com.example.justin.doggie.activity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -83,6 +84,15 @@ public class LoginActivity extends AppCompatActivity
         else if( requestCode == UPDATE_FROM_MAIN && resultCode == RESULT_OK )
         {
             currentUser = (User) data.getExtras().get(KEY_USER);
+        }
+    }
+
+    public class GetUserByCredentialHelper extends AsyncTask<Void, Void, String>
+    {
+        @Override
+        protected String doInBackground( Void... params )
+        {
+            return null;
         }
     }
 }
