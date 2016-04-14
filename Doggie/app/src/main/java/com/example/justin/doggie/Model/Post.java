@@ -3,94 +3,181 @@ package com.example.justin.doggie.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by Angelo Amadora on 3/14/2016.
- */
-public class Post implements Parcelable{
-    private int UserId;
-    private int PostId;
-    private int picture;
-    private int userPicture;
-    private String message;
-    private int numLikes;
-    private int numComments;
-
-    //tempshit
+public class Post implements Parcelable
+{
+    private String postId;
+    private String userId;
     private String username;
-    private String location;
+    private String post;
+    private String imageURL;
+    private int numFavorite;
+    private int numComment;
+    private double latitude;
+    private double longitude;
+    private boolean isDeleted;
 
-    public Post(String message, int numLikes, int numComments){
-        this.message = message;
-        this.numLikes = numLikes;
-        this.numComments = numComments;
+    public Post()
+    {
+
     }
-    public Post(String username,String location,String message, int numLikes, int numComments){
+
+    public Post(String username, double latitude, double longitude, String post, int numFavorite, int numComment)
+    {
         this.username = username;
-        this.location = location;
-        this.message = message;
-        this.numLikes = numLikes;
-        this.numComments = numComments;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.post = post;
+        this.numFavorite = numFavorite;
+        this.numComment = numComment;
     }
 
-    protected Post(Parcel in) {
-        UserId = in.readInt();
-        PostId = in.readInt();
-        picture = in.readInt();
-        userPicture = in.readInt();
-        message = in.readString();
-        numLikes = in.readInt();
-        numComments = in.readInt();
+    protected Post( Parcel in )
+    {
+        postId = in.readString();
+        userId = in.readString();
         username = in.readString();
-        location = in.readString();
+        post = in.readString();
+        imageURL = in.readString();
+        numFavorite = in.readInt();
+        numComment = in.readInt();
+        latitude = in.readDouble();
+        longitude = in.readDouble();
+        isDeleted = in.readByte() != 0;
     }
 
-    public static final Creator<Post> CREATOR = new Creator<Post>() {
+    public static final Creator<Post> CREATOR = new Creator<Post>()
+    {
         @Override
-        public Post createFromParcel(Parcel in) {
+        public Post createFromParcel( Parcel in )
+        {
             return new Post(in);
         }
 
         @Override
-        public Post[] newArray(int size) {
+        public Post[] newArray( int size )
+        {
             return new Post[size];
         }
     };
 
-    public String getMessage(){
-        return this.message;
+    public String getPostId()
+    {
+        return postId;
     }
 
-    public int getNumLikes(){
-        return this.numLikes;
+    public String getUserId()
+    {
+        return userId;
     }
 
-    public int getNumComments(){
-        return this.numComments;
+    public String getUsername()
+    {
+        return username;
     }
 
-    public String getUsername(){
-        return  this.username;
+    public String getPost()
+    {
+        return post;
     }
 
-    public String getLocation(){
-        return this.location;
+    public String getImageURL()
+    {
+        return imageURL;
+    }
+
+    public int getNumFavorite()
+    {
+        return numFavorite;
+    }
+
+    public int getNumComment()
+    {
+        return numComment;
+    }
+
+    public double getLatitude()
+    {
+        return latitude;
+    }
+
+    public double getLongitude()
+    {
+        return longitude;
+    }
+
+    public boolean isIsDeleted()
+    {
+        return isDeleted;
+    }
+
+    public void setPostId(String postId)
+    {
+        this.postId = postId;
+    }
+
+    public void setUserId(String userId)
+    {
+        this.userId = userId;
+    }
+
+    public void setUsername(String username)
+    {
+        this.username = username;
+    }
+
+    public void setPost(String post)
+    {
+        this.post = post;
+    }
+
+    public void setImageURL(String imageURL)
+    {
+        this.imageURL = imageURL;
+    }
+
+    public void setNumFavorite(int numFavorite)
+    {
+        this.numFavorite = numFavorite;
+    }
+
+    public void setNumComment(int numComment)
+    {
+        this.numComment = numComment;
+    }
+
+    public void setLatitude(double latitude)
+    {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude)
+    {
+        this.longitude = longitude;
+    }
+
+    public void setIsDeleted(boolean isDeleted)
+    {
+        this.isDeleted = isDeleted;
     }
 
     @Override
-    public int describeContents() {
+    public int describeContents()
+    {
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(UserId);
-        dest.writeInt(PostId);
-        dest.writeInt(picture);
-        dest.writeInt(userPicture);
-        dest.writeString(message);
-        dest.writeInt(numLikes);
-        dest.writeInt(numComments);
+    public void writeToParcel( Parcel dest, int flags )
+    {
+        dest.writeString(postId);
+        dest.writeString(userId);
         dest.writeString(username);
-        dest.writeString(location);
+        dest.writeString(post);
+        dest.writeString(imageURL);
+        dest.writeInt(numFavorite);
+        dest.writeInt(numComment);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
+        dest.writeByte((byte) (isDeleted ? 1 : 0));
     }
 }

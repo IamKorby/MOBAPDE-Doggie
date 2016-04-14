@@ -12,9 +12,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.justin.doggie.model.Preference;
+import com.example.justin.doggie.model.ServerInfo;
 import com.example.justin.doggie.model.User;
 import com.example.justin.doggie.R;
 import com.example.justin.doggie.adapter.PreferenceAdapter;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,8 +25,10 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class RegisterActivity extends AppCompatActivity
@@ -60,6 +64,8 @@ public class RegisterActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                new RegisterUserHelper().execute();
+                /*
                 String firstName = etFirstName.getText().toString();
                 String lastName = etLastName.getText().toString();
                 String email = etEmail.getText().toString();
@@ -72,7 +78,7 @@ public class RegisterActivity extends AppCompatActivity
 
                 if (password.equals(confirmPassword))
                 {
-                    User user = new User(firstName, lastName, email, mobileNo, username, password, userPreference);
+                    /*User user = new User(firstName, lastName, email, mobileNo, username, password, userPreference);
 
                     // temporary solution
                     Intent intent = new Intent();
@@ -84,7 +90,7 @@ public class RegisterActivity extends AppCompatActivity
                 else
                 {
                     Toast.makeText(RegisterActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
-                }
+                }*/
             }
         });
 
@@ -103,7 +109,7 @@ public class RegisterActivity extends AppCompatActivity
         @Override
         protected String doInBackground( Void... params )
         {
-            String url = "http://10.100.203.66:8080/DoggieServer/GetAllPreferencesServlet";
+            String url = ServerInfo.url + "GetAllPreferencesServlet";
 
             OkHttpClient client = new OkHttpClient();
 
@@ -155,6 +161,69 @@ public class RegisterActivity extends AppCompatActivity
             {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public class RegisterUserHelper extends AsyncTask<String, Void, String>
+    {
+        User user = new User();
+
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+            user.setFirstName(etFirstName.getText().toString());
+            user.setLastName(etLastName.getText().toString());
+            user.setEmail(etEmail.getText().toString());
+            user.setMobileNumber(etMobile.getText().toString());
+            user.setUsername(etUsername.getText().toString());
+            user.setPassword(etPassword.getText().toString());
+
+            // get the chosen preferenceIds of the user and query it from the preferenceList / database
+            user.setUserPreferences(getUserPreferences(preferenceAdapter.getUserPreferenceIds()));
+        }
+
+        @Override
+        protected String doInBackground( String... params )
+        {
+            String url = ServerInfo.url + "AddUserServlet";
+
+            OkHttpClient client = new OkHttpClient();
+
+            //JSONArray preferences = new JSONArray(user.getUserPreferences());
+            Gson gson = new Gson();
+            String preferences = gson.toJson(user.getUserPreferences());
+
+            //Toast.makeText(RegisterActivity.this, preferences, Toast.LENGTH_SHORT).show();
+
+            // this request needs to send data from client to server
+            RequestBody postRequestBody = new FormBody.Builder()
+                    .add("firstName", user.getFirstName())
+                    .add("lastName", user.getLastName())
+                    .add("email", user.getEmail())
+                    .add("mobileNumber", user.getMobileNumber())
+                    .add("username", user.getUsername())
+                    .add("password", user.getPassword())
+                    .add("userPreferences", preferences.toString())
+                    .build();
+
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(postRequestBody)
+                    .build();
+
+            try
+            {
+                client.newCall(request).execute();
+                // In this case, the client is not waiting for a response back
+                // but it's better to check if the request was handled correctly or not
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+
+            return null;
         }
     }
 

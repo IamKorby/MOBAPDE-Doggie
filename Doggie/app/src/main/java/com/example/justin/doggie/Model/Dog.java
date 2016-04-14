@@ -3,20 +3,24 @@ package com.example.justin.doggie.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by Angelo Amadora on 3/8/2016.
- */
 public class Dog implements Parcelable
 {
-    private int id;
+    private String dogId;
+    private String userId;
     private String name;
-    private boolean isStray;
-    private int mainPic;
-    private String description;
-    private String location;
-
-    //temporary since wala pang database
+    private String pictureURL;
     private String contact;
+    private String location;
+    private boolean hasPaper;
+    private boolean isStray;
+    private boolean isLost;
+    private boolean isStud;
+    private boolean isAdopt;
+
+    public Dog()
+    {
+
+    }
 
     public Dog( String name, boolean isStray, String location, String contact)
     {
@@ -24,27 +28,47 @@ public class Dog implements Parcelable
         this.isStray = isStray;
         this.location = location;
         this.contact = contact;
+
     }
 
-    protected Dog(Parcel in)
+    protected Dog( Parcel in )
     {
-        id = in.readInt();
+        dogId = in.readString();
+        userId = in.readString();
         name = in.readString();
-        isStray = in.readByte() != 0;
-        mainPic = in.readInt();
-        description = in.readString();
-        location = in.readString();
+        pictureURL = in.readString();
         contact = in.readString();
+        location = in.readString();
+        hasPaper = in.readByte() != 0;
+        isStray = in.readByte() != 0;
+        isLost = in.readByte() != 0;
+        isStud = in.readByte() != 0;
+        isAdopt = in.readByte() != 0;
     }
 
-    public int getId()
+    public static final Creator<Dog> CREATOR = new Creator<Dog>()
     {
-        return id;
+        @Override
+        public Dog createFromParcel( Parcel in )
+        {
+            return new Dog(in);
+        }
+
+        @Override
+        public Dog[] newArray( int size )
+        {
+            return new Dog[size];
+        }
+    };
+
+    public String getDogId()
+    {
+        return dogId;
     }
 
-    public void setId(int id)
+    public String getUserId()
     {
-        this.id = id;
+        return userId;
     }
 
     public String getName()
@@ -52,49 +76,9 @@ public class Dog implements Parcelable
         return name;
     }
 
-    public void setName(String name)
+    public String getPictureURL()
     {
-        this.name = name;
-    }
-
-    public boolean isStray()
-    {
-        return isStray;
-    }
-
-    public void setIsStray(boolean isStray)
-    {
-        this.isStray = isStray;
-    }
-
-    public int getMainPic()
-    {
-        return mainPic;
-    }
-
-    public void setMainPic(int mainPic)
-    {
-        this.mainPic = mainPic;
-    }
-
-    public String getDescription()
-    {
-        return description;
-    }
-
-    public void setDescription(String description)
-    {
-        this.description = description;
-    }
-
-    public String getLocation()
-    {
-        return location;
-    }
-
-    public void setLocation(String location)
-    {
-        this.location = location;
+        return pictureURL;
     }
 
     public String getContact()
@@ -102,9 +86,89 @@ public class Dog implements Parcelable
         return contact;
     }
 
+    public String getLocation()
+    {
+        return location;
+    }
+
+    public boolean isHasPaper()
+    {
+        return hasPaper;
+    }
+
+    public boolean isStray()
+    {
+        return isStray;
+    }
+
+    public boolean isLost()
+    {
+        return isLost;
+    }
+
+    public boolean isStud()
+    {
+        return isStud;
+    }
+
+    public boolean isAdopt()
+    {
+        return isAdopt;
+    }
+
+    public void setDogId(String dogId)
+    {
+        this.dogId = dogId;
+    }
+
+    public void setUserId(String userId)
+    {
+        this.userId = userId;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public void setPictureURL(String pictureURL)
+    {
+        this.pictureURL = pictureURL;
+    }
+
     public void setContact(String contact)
     {
         this.contact = contact;
+    }
+
+    public void setLocation(String location)
+    {
+        this.location = location;
+    }
+
+    public void setHasPaper(boolean hasPaper)
+    {
+        this.hasPaper = hasPaper;
+    }
+
+    public void setStray(boolean isStray)
+    {
+        this.isStray = isStray;
+    }
+
+    public void setLost(boolean isLost)
+    {
+        this.isLost = isLost;
+    }
+
+    public void setStud(boolean isStud)
+    {
+        this.isStud = isStud;
+    }
+
+    public void setAdopt(boolean isAdopt)
+    {
+        this.isAdopt = isAdopt;
     }
 
     @Override
@@ -114,29 +178,18 @@ public class Dog implements Parcelable
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags)
+    public void writeToParcel( Parcel dest, int flags )
     {
-        dest.writeInt(id);
+        dest.writeString(dogId);
+        dest.writeString(userId);
         dest.writeString(name);
-        dest.writeByte((byte) (isStray ? 1 : 0));
-        dest.writeInt(mainPic);
-        dest.writeString(description);
-        dest.writeString(location);
+        dest.writeString(pictureURL);
         dest.writeString(contact);
+        dest.writeString(location);
+        dest.writeByte((byte) (hasPaper ? 1 : 0));
+        dest.writeByte((byte) (isStray ? 1 : 0));
+        dest.writeByte((byte) (isLost ? 1 : 0));
+        dest.writeByte((byte) (isStud ? 1 : 0));
+        dest.writeByte((byte) (isAdopt ? 1 : 0));
     }
-
-    public static final Creator<Dog> CREATOR = new Creator<Dog>()
-    {
-        @Override
-        public Dog createFromParcel(Parcel in)
-        {
-            return new Dog(in);
-        }
-
-        @Override
-        public Dog[] newArray(int size)
-        {
-            return new Dog[size];
-        }
-    };
 }

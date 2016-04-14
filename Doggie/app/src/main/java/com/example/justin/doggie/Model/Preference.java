@@ -3,44 +3,21 @@ package com.example.justin.doggie.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by Justin on 12/03/2016.
- */
 public class Preference implements Parcelable
 {
     private int id;
     private String preference;
 
-    public Preference( int id, String preference )
+    public Preference(int id, String preference)
     {
-        this.id = id;
-        this.preference = preference;
+            this.id = id;
+            this.preference = preference;
     }
 
     protected Preference( Parcel in )
     {
         id = in.readInt();
         preference = in.readString();
-    }
-
-    public int getId()
-    {
-        return id;
-    }
-
-    public void setId(int id)
-    {
-        this.id = id;
-    }
-
-    public String getPreference()
-    {
-        return preference;
-    }
-
-    public void setPreference(String preference)
-    {
-        this.preference = preference;
     }
 
     public static final Creator<Preference> CREATOR = new Creator<Preference>()
@@ -57,6 +34,26 @@ public class Preference implements Parcelable
             return new Preference[size];
         }
     };
+
+    public int getId()
+    {
+            return id;
+    }
+
+    public void setId(int id)
+    {
+            this.id = id;
+    }
+
+    public String getPreference()
+    {
+            return preference;
+    }
+
+    public void setPreference(String preference)
+    {
+            this.preference = preference;
+    }
 
     @Override
     public int describeContents()

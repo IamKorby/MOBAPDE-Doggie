@@ -95,7 +95,7 @@ public class PreferenceAdapter extends RecyclerView.Adapter<PreferenceAdapter.Pr
                     ids += preferenceId.get(i).toString();
                 }
 
-                Toast.makeText(v.getContext(), "V:" + ids, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(v.getContext(), "V:" + ids, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -123,7 +123,7 @@ public class PreferenceAdapter extends RecyclerView.Adapter<PreferenceAdapter.Pr
                     ids += preferenceId.get(i).toString();
                 }
 
-                Toast.makeText(buttonView.getContext(), "CB:" + ids, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(buttonView.getContext(), "CB:" + ids, Toast.LENGTH_SHORT).show();
             }
         });
     }

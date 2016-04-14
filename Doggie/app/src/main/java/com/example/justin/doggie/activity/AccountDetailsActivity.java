@@ -46,12 +46,12 @@ public class AccountDetailsActivity extends AppCompatActivity
         preferences.add(new Preference(2, "Brown"));
         preferences.add(new Preference(3, "Black"));
 
-        user = new User(p.getUsername(), "", "", "", "", "", preferences);
+        //user = new User(p, "", "", "", "", "", preferences);
 
         tvUsername.setText(user.getFirstName() + " " + user.getLastName());
-        tvMobile.setText(user.getMobileNo());
+        tvMobile.setText(user.getMobileNumber());
 
-        userPreferenceAdapter = new UserPreferenceAdapter(user.getPreferences());
+        userPreferenceAdapter = new UserPreferenceAdapter(user.getUserPreferences());
         rvUserPreference.setAdapter(userPreferenceAdapter);
         rvUserPreference.setLayoutManager(new LinearLayoutManager(getBaseContext()));
 

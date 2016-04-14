@@ -44,9 +44,9 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
 
         //civDisplayPicture
         holder.username.setText(temp.getUsername());
-        holder.location.setText(temp.getLocation());
+        holder.location.setText("( " + temp.getLatitude() + ", " + temp.getLongitude() + " )");
         //ivPostPicture
-        holder.message.setText(temp.getMessage());
+        holder.message.setText(temp.getPost());
 
         holder.ivPostPicture.setTag(holder);
         holder.ivFavorite.setTag(holder);

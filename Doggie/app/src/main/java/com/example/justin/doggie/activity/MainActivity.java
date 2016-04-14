@@ -94,10 +94,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         posts = new ArrayList<>(0);
-        posts.add(new Post("kerbbie","Taft","my dog lit fam",9,99));
-        posts.add(new Post("AJ","Bicuts","asdfasdfasf",9,95));
-        posts.add(new Post("Hannah","IDK","Dog be crazy",9,2));
-        posts.add(new Post("WIll","Near taft daw","great dog",9,199));
+        posts.add(new Post("kerbbie",10, 20,"my dog lit fam",9,99));
+        posts.add(new Post("AJ",30, 40,"asdfasdfasf",9,95));
+        posts.add(new Post("Hannah",50, 100,"Dog be crazy",9,2));
+        posts.add(new Post("WIll",70, 130,"great dog",9,199));
 
     }
 

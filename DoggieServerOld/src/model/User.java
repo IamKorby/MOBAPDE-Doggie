@@ -20,6 +20,18 @@ public class User
 
     }
 
+    public User(String firstName, String lastName, String email, String mobileNumber, String username, String password, double latitude, double longitude) 
+    {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.mobileNumber = mobileNumber;
+        this.username = username;
+        this.password = password;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+    
     public User(String userId, String firstName, String lastName, String email, String mobileNumber, String username, String password, double latitude, double longitude) 
     {
         this.userId = userId;

@@ -9,22 +9,24 @@ import com.google.gson.Gson;
 import controller.Controller;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Preference;
 import model.User;
 
 /**
  *
  * @author Justin
  */
-@WebServlet(name = "GetUserByCredentialsServlet", urlPatterns =
+@WebServlet(name = "AddUserServlet", urlPatterns =
 {
-    "/GetUserByCredentialsServlet"
+    "/AddUserServlet"
 })
-public class GetUserByCredentialsServlet extends HttpServlet
+public class AddUserServlet extends HttpServlet
 {
 
     /**
@@ -46,10 +48,10 @@ public class GetUserByCredentialsServlet extends HttpServlet
 	    out.println("<!DOCTYPE html>");
 	    out.println("<html>");
 	    out.println("<head>");
-	    out.println("<title>Servlet GetUserByCredentialsServlet</title>");	    
+	    out.println("<title>Servlet AddUserServlet</title>");	    
 	    out.println("</head>");
 	    out.println("<body>");
-	    out.println("<h1>Servlet GetUserByCredentialsServlet at " + request.getContextPath() + "</h1>");
+	    out.println("<h1>Servlet AddUserServlet at " + request.getContextPath() + "</h1>");
 	    out.println("</body>");
 	    out.println("</html>");
 	}
@@ -84,17 +86,24 @@ public class GetUserByCredentialsServlet extends HttpServlet
 	    throws ServletException, IOException
     {
 	//processRequest(request, response);
+	String firstName = request.getParameter("firstName");
+	String lastName = request.getParameter("lastName");
+	String email = request.getParameter("email");
+	String mobileNumber = request.getParameter("mobileNumber");
 	String username = request.getParameter("username");
 	String password = request.getParameter("password");
+	String userPreferences = request.getParameter("userPreferences");
+	
+	Gson gson = new Gson();
+	//ArrayList<Preference> preferences = gson.fromJson(userPreferences, ArrayList<Preference>);
+	
+	User user = new User (firstName, lastName, email, mobileNumber, username, password,  14.5643551, 120.994);
+	 
+	
+	System.out.println(userPreferences);
 	
 	Controller controller = new Controller();
-	
-	User user = controller.getUserByCredentials(username, password);
-	
-	Gson g = new Gson();
-	String json = g.toJson(user);
-	System.out.println(json);
-	response.getWriter().write(json);
+	controller.insertUser(user);
     }
 
     /**

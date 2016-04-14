@@ -4,10 +4,13 @@ public class Post
 {
     private String postId;
     private String userId;
+    private String username;
     private String post;
     private String imageURL;
     private int numFavorite;
     private int numComment;
+    private double latitude;
+    private double longitude;
     private boolean isDeleted;
 
     public Post()
@@ -17,71 +20,101 @@ public class Post
 
     public String getPostId()
     {
-            return postId;
+	return postId;
     }
 
     public String getUserId()
     {
-            return userId;
+	return userId;
     }
-
+    
+    public String getUsername()
+    {
+	return username;
+    }
+    
     public String getPost()
     {
-            return post;
+	return post;
     }
-
+    
     public String getImageURL()
     {
-            return imageURL;
+	return imageURL;
     }
-
+    
     public int getNumFavorite()
     {
-            return numFavorite;
+	return numFavorite;
     }
-
+    
     public int getNumComment()
     {
-            return numComment;
+	return numComment;
     }
-
-    public boolean isDeleted()
+    
+    public double getLatitude()
     {
-            return isDeleted;
+	return latitude;
     }
-
+    
+    public double getLongitude()
+    {
+	return longitude;
+    }
+    
+    public boolean isIsDeleted()
+    {
+	return isDeleted;
+    }
+    
     public void setPostId(String postId)
     {
-            this.postId = postId;
+	this.postId = postId;
     }
 
     public void setUserId(String userId)
     {
-            this.userId = userId;
+	this.userId = userId;
+    }
+
+    public void setUsername(String username)
+    {
+	this.username = username;
     }
 
     public void setPost(String post)
     {
-            this.post = post;
+	this.post = post;
     }
 
     public void setImageURL(String imageURL)
     {
-            this.imageURL = imageURL;
+	this.imageURL = imageURL;
     }
 
     public void setNumFavorite(int numFavorite)
     {
-            this.numFavorite = numFavorite;
+	this.numFavorite = numFavorite;
     }
 
     public void setNumComment(int numComment)
     {
-            this.numComment = numComment;
+	this.numComment = numComment;
     }
 
-    public void setDeleted(boolean isDeleted)
+    public void setLatitude(double latitude)
     {
-            this.isDeleted = isDeleted;
+	this.latitude = latitude;
     }
+
+    public void setLongitude(double longitude)
+    {
+	this.longitude = longitude;
+    }
+
+    public void setIsDeleted(boolean isDeleted)
+    {
+	this.isDeleted = isDeleted;
+    }    
 }

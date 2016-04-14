@@ -19,6 +19,7 @@ import com.example.justin.doggie.activity.LoginActivity;
 import com.example.justin.doggie.activity.MainActivity;
 import com.example.justin.doggie.adapter.PreferenceAdapter;
 import com.example.justin.doggie.model.Preference;
+import com.example.justin.doggie.model.ServerInfo;
 import com.example.justin.doggie.model.User;
 
 import org.json.JSONArray;
@@ -68,7 +69,7 @@ public class SettingsFragment extends Fragment
         etFirstName.setText(currentUser.getFirstName());
         etLastName.setText(currentUser.getLastName());
         etEmail.setText(currentUser.getEmail());
-        etMobile.setText(currentUser.getMobileNo());
+        etMobile.setText(currentUser.getMobileNumber());
         etUsername.setText(currentUser.getUsername());
         etPassword.setText(currentUser.getPassword());
 
@@ -92,10 +93,10 @@ public class SettingsFragment extends Fragment
 
                 if (password.equals(confirmPassword))
                 {
-                    User user = new User(firstName, lastName, email, mobileNo, username, password, userPreference);
+                    //User user = new User(firstName, lastName, email, mobileNo, username, password, userPreference);
 
                     // temporary solution
-                    ((MainActivity) getActivity()).updateCurrentUser(user);
+                    //((MainActivity) getActivity()).updateCurrentUser(user);
                 }
                 else
                 {
@@ -121,7 +122,7 @@ public class SettingsFragment extends Fragment
         @Override
         protected String doInBackground( Void... params )
         {
-            String url = "http://10.100.203.66:8080/DoggieServer/GetAllPreferencesServlet";
+            String url = ServerInfo.url + "GetAllPreferencesServlet";
 
             OkHttpClient client = new OkHttpClient();
 
@@ -165,7 +166,7 @@ public class SettingsFragment extends Fragment
                 }
 
                 preferenceAdapter = new PreferenceAdapter(preferenceList, true);
-                preferenceAdapter.setUserPreferenceIds(currentUser.getPreferenceIds());
+                preferenceAdapter.setUserPreferenceIds(currentUser.getUserPreferenceIds());
 
                 rvPreferences.setAdapter(preferenceAdapter);
                 rvPreferences.setLayoutManager(new LinearLayoutManager(getActivity()));
